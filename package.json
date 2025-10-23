@@ -39,10 +39,16 @@
       "**/*",
       "!**/*.map",
       "!**/.*",
+      "!dist/**",
+      "!miew/**",
+      "!scripts/**",
+      "!pyscf/**",
+      "!skala/**",
       "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
       "!node_modules/*/{test,tests,example,examples,doc,docs}/**"
     ],
     "asar": true,
+    "npmRebuild": false,
     "extraResources": [
       {
         "from": "scripts",
@@ -62,9 +68,7 @@
     ],
     "mac": {
       "category": "public.app-category.science",
-      "target": [
-        { "target": "zip", "arch": ["arm64", "x64"] }
-      ],
+      "target": ["zip"],
       "artifactName": "${productName}-${version}-${arch}-mac.${ext}",
       "identity": null
     },
