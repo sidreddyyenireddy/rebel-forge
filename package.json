@@ -1,17 +1,18 @@
 {
   "name": "rebel-forge",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "RebelForge — DFT/quantum chemistry desktop app",
   "main": "dist/main/index.js",
-  "author": { "name": "Sidharth Yenireddy", "email": "you@example.com" },
-
+  "author": {
+    "name": "Sidharth Yenireddy",
+    "email": "you@example.com"
+  },
   "scripts": {
     "build": "electron-builder",
     "build:mac": "electron-builder -m",
     "build:win": "electron-builder --win nsis --x64",
     "build:linux": "electron-builder -l AppImage deb --x64"
   },
-
   "dependencies": {
     "electron-updater": "^6"
   },
@@ -19,11 +20,9 @@
     "electron": "^32.2.0",
     "electron-builder": "^26.0.12"
   },
-
   "build": {
     "appId": "com.rebelforge.app",
     "productName": "RebelForge",
-
     "files": [
       "!dist/**",
       "!**/{test,tests}/**",
@@ -34,35 +33,66 @@
       {
         "from": "resources/pyscf",
         "to": "resources/pyscf",
-        "filter": ["**/*", "!**/examples/**", "!**/doc*/**", "!**/*.md"]
+        "filter": [
+          "**/*",
+          "!**/examples/**",
+          "!**/doc*/**",
+          "!**/*.md"
+        ]
       },
       {
         "from": "resources/skala",
         "to": "resources/skala",
-        "filter": ["**/*", "!**/examples/**", "!**/docs/**", "!**/*.md"]
+        "filter": [
+          "**/*",
+          "!**/examples/**",
+          "!**/docs/**",
+          "!**/*.md"
+        ]
       }
     ],
-
     "asar": true,
-    "asarUnpack": ["**/*.node"],
-
+    "asarUnpack": [
+      "**/*.node"
+    ],
     "mac": {
-      "target": [{ "target": "zip", "arch": ["arm64", "x64"] }],
+      "target": [
+        {
+          "target": "zip",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
       "artifactName": "RebelForge-${version}-mac-${arch}.${ext}"
     },
     "win": {
-      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
       "artifactName": "RebelForge-${version}-win-x64.${ext}"
     },
     "linux": {
-      "target": ["AppImage", "deb"],
+      "target": [
+        "AppImage",
+        "deb"
+      ],
       "maintainer": "Sidharth Yenireddy <you@example.com>",
       "category": "Science",
       "artifactName": "RebelForge-${version}-linux-${arch}.${ext}"
     },
-
     "publish": [
-      { "provider": "github", "owner": "sidreddyyenireddy", "repo": "rebel-forge" }
+      {
+        "provider": "github",
+        "owner": "sidreddyyenireddy",
+        "repo": "rebel-forge"
+      }
     ]
   }
 }
