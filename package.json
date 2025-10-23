@@ -1,132 +1,65 @@
 {
   "name": "rebel-forge",
   "version": "1.0.3",
-  "description": "Desktop quantum chemistry and visualization app (Electron)",
-  "homepage": "https://github.com/sidreddyyenireddy/rebel-forge#readme",
-  "bugs": {
-    "url": "https://github.com/sidreddyyenireddy/rebel-forge/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sidreddyyenireddy/rebel-forge.git"
-  },
-  "license": "UNLICENSED",
-  "author": {
-    "name": "Sidharth Yenireddy",
-    "email": "sidhry1234@gmail.com"
-  },
-  "type": "commonjs",
-  "main": "index.js",
-  "scripts": {
-    "start": "electron .",
-    "dist": "electron-builder --publish never",
-    "pack": "electron-builder --dir",
-    "publish": "electron-builder --publish always",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "devDependencies": {
-    "electron": "^38.3.0",
-    "electron-builder": "^24.13.3"
-  },
-  "dependencies": {
-    "@blueprintjs/core": "^6.3.2",
-    "antd": "^5.27.6",
-    "kekule": "^1.0.3",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
+  "author": { "name": "Sidharth Yenireddy", "email": "you@example.com" },
   "build": {
-    "appId": "com.sidreddyyenireddy.rebelforge",
-    "productName": "Rebel Forge",
+    "productName": "RebelForge",
+    "appId": "com.rebelforge.app",
+
     "files": [
-      "**/*",
-      "!**/*.map",
-      "!**/.*",
       "!dist/**",
-      "!miew/**",
-      "!scripts/**",
-      "!pyscf/**",
-      "!skala/**",
-      "!node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-      "!node_modules/*/{test,tests,example,examples,doc,docs}/**"
+      "!**/{test,tests}/**",
+      "!**/{doc,docs}/**",
+      "!**/examples/**"
     ],
-    "asar": true,
-    "npmRebuild": false,
+
     "extraResources": [
       {
-        "from": "scripts",
-        "to": "scripts",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
-        "from": "pyscf",
-        "to": "pyscf",
+        "from": "resources/pyscf",
+        "to": "resources/pyscf",
         "filter": [
           "**/*",
-          "!examples/**"
+          "!**/examples/**",
+          "!**/doc/**",
+          "!**/docs/**",
+          "!**/doc_legacy/**",
+          "!**/*.md"
         ]
       },
       {
-        "from": "skala",
-        "to": "skala",
+        "from": "resources/skala",
+        "to": "resources/skala",
         "filter": [
-          "**/*"
+          "**/*",
+          "!**/examples/**",
+          "!**/docs/**",
+          "!**/*.md"
         ]
       }
     ],
+
+    "asar": true,
+    "asarUnpack": ["**/*.node"],
+
     "mac": {
-      "category": "public.app-category.science",
-      "target": [
-        "zip"
-      ],
-      "artifactName": "${productName}-${version}-${arch}-mac.${ext}",
-      "identity": null
+      "target": [{ "target": "zip", "arch": ["arm64", "x64"] }],
+      "artifactName": "RebelForge-${version}-mac-${arch}.${ext}"
     },
+
     "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}-${version}-${arch}-win.${ext}",
-      "publisherName": "Sid Reddy"
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "RebelForge-${version}-win-x64.${ext}"
     },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": false
-    },
+
     "linux": {
-      "maintainer": "Sidharth Yenireddy <sidhry1234@gmail.com>",
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64"
-          ]
-        },
-        {
-          "target": "deb",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
-      "category": "Science"
+      "target": ["AppImage", "deb"],
+      "maintainer": "Sidharth Yenireddy <you@example.com>",
+      "category": "Science",
+      "artifactName": "RebelForge-${version}-linux-${arch}.${ext}"
     },
+
     "publish": [
-      {
-        "provider": "github",
-        "owner": "sidreddyyenireddy",
-        "repo": "rebel-forge"
-      }
+      { "provider": "github", "owner": "sidreddyyenireddy", "repo": "rebel-forge" }
     ]
   }
 }
