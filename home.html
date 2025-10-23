@@ -9,11 +9,12 @@
       name="description"
       content="Professional molecular operations console powered by Miew."
     />
-    <link rel="stylesheet" href="./node_modules/antd/dist/reset.css" />
-    <link rel="stylesheet" href="./node_modules/antd/dist/antd.min.css" />
-    <link rel="stylesheet" href="./node_modules/@blueprintjs/core/lib/css/blueprint.css" />
-    <link rel="stylesheet" href="./node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css" />
-    <link rel="stylesheet" href="./miew/packages/miew/dist/Miew.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/antd@5/dist/reset.css" />
+    <link rel="stylesheet" href="https://unpkg.com/antd@5/dist/antd.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@blueprintjs/core@5/lib/css/blueprint.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@blueprintjs/icons@5/lib/css/blueprint-icons.css" />
+    <!-- Miew viewer styles: required for proper sizing of internal canvas -->
+    <link rel="stylesheet" href="https://unpkg.com/miew@0.11.0/dist/Miew.min.css" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="rf-miew">
@@ -50,7 +51,7 @@
                 Miew engine. Upload, drag and drop, or pull a curated reference to begin.
               </p>
             </header>
-            <div id="miew-container" class="rf-viewer-canvas" aria-label="Miew molecular viewer"></div>
+            <div id="miew-container" class="rf-viewer-canvas miew-container" aria-label="Miew molecular viewer"></div>
             <div id="load-status" class="rf-status" role="status" aria-live="polite" data-intent="idle">
               <span id="load-status-text">Initializing Miew viewer…</span>
               <a

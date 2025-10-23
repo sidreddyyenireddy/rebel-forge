@@ -1,4 +1,58 @@
 (function () {
+  // Web fallback: provide a browser implementation of the Electron preload API
+  if (!window.desktopAPI) {
+    let __logHandler = null;
+    const setHandler = (handler) => {
+      __logHandler = typeof handler === 'function' ? handler : null;
+      return () => { __logHandler = null; };
+    };
+    const streamJob = (jobId) => new Promise((resolve, reject) => {
+      try {
+        const es = new EventSource(`/api/run-dft/events/${encodeURIComponent(jobId)}`);
+        es.addEventListener('log', (ev) => {
+          try {
+            const msg = JSON.parse(ev.data);
+            if (__logHandler) __logHandler(msg);
+          } catch (_) {}
+        });
+        es.addEventListener('result', (ev) => {
+          try {
+            const data = JSON.parse(ev.data);
+            es.close();
+            resolve(data);
+          } catch (e) {
+            es.close();
+            reject(e);
+          }
+        });
+        es.addEventListener('end', () => { try { es.close(); } catch (_) {} });
+        es.onerror = (err) => {
+          console.error('[DFT SSE] error', err);
+          try { es.close(); } catch (_) {}
+          reject(new Error('DFT stream connection error'));
+        };
+      } catch (e) {
+        reject(e);
+      }
+    });
+    const startJob = async (payload) => {
+      const resp = await fetch('/api/run-dft', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload || {}),
+      });
+      const data = await resp.json().catch(() => ({}));
+      if (!resp.ok || !data || data.success === false || !data.jobId) {
+        throw new Error((data && data.error) || 'Failed to start DFT job');
+      }
+      return streamJob(data.jobId);
+    };
+    window.desktopAPI = {
+      onDFTLog: setHandler,
+      runDFT: (payload) => startJob(payload),
+      runGeometryOptimization: (payload) => startJob({ ...(payload || {}), task: 'geomopt', optimize: true, includeForces: true }),
+    };
+  }
   const SAMPLE_LIBRARY = {
     local1crn: {
       label: '1CRN (Local Benchmark)',

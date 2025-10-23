@@ -442,7 +442,9 @@ body.rf-miew {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  /* Give Miew a definite height so its internal 100% canvas fills properly */
   min-height: 560px;
+  height: 560px;
   border-radius: 22px;
   border: 1px solid rgba(31, 60, 136, 0.14);
   overflow: hidden;
@@ -565,6 +567,7 @@ body.rf-miew {
 
   .rf-viewer-canvas {
     min-height: 420px;
+    height: 420px;
   }
 
   .rf-button-row {

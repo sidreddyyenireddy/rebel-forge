@@ -1,75 +1,16 @@
 {
   "name": "rebel-forge",
-  "version": "1.0.7",
-  "description": "Desktop quantum chemistry and visualization app (Electron)",
-  "main": "index.js",
+  "version": "1.0.8",
+  "description": "Quantum chemistry and visualization app (web + local server)",
   "author": {
     "name": "Sidharth Yenireddy",
     "email": "sidhry1234@gmail.com"
   },
+  "private": true,
   "scripts": {
-    "build": "electron-builder",
-    "build:mac": "electron-builder -m",
-    "build:win": "electron-builder --win nsis --x64",
-    "build:linux": "electron-builder -l AppImage deb --x64"
+    "start": "node server.js"
   },
   "dependencies": {
-    "electron-updater": "^6"
-  },
-  "devDependencies": {
-    "electron": "^32.2.0",
-    "electron-builder": "^26.0.12"
-  },
-  "build": {
-    "appId": "com.sidreddyyenireddy.rebelforge",
-    "productName": "Rebel Forge",
-    "files": [
-      "**/*",
-      "!**/*.map",
-      "!**/.*",
-      "!dist/**",
-      "!miew/**",
-      "!scripts/**",
-      "!pyscf/**",
-      "!skala/**",
-      "!**/{test,tests}/**",
-      "!**/{doc,docs}/**",
-      "!**/examples/**"
-    ],
-    "asar": true,
-    "npmRebuild": false,
-    "extraResources": [
-      { "from": "scripts", "to": "scripts", "filter": ["**/*"] },
-      { "from": "pyscf", "to": "pyscf", "filter": ["**/*", "!examples/**", "!**/doc*/**", "!**/*.md"] },
-      { "from": "skala", "to": "skala", "filter": ["**/*", "!**/examples/**", "!**/docs/**", "!**/*.md"] }
-    ],
-    "mac": {
-      "target": ["zip"],
-      "identity": null,
-      "artifactName": "${productName}-${version}-${arch}-mac.${ext}"
-    },
-    "win": {
-      "target": [{ "target": "nsis", "arch": ["x64"] }],
-      "artifactName": "${productName}-${version}-${arch}-win.${ext}",
-      "publisherName": "Sid Reddy"
-    },
-    "nsis": {
-      "oneClick": true,
-      "perMachine": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": false
-    },
-    "linux": {
-      "maintainer": "Sidharth Yenireddy <sidhry1234@gmail.com>",
-      "target": [
-        { "target": "AppImage", "arch": ["x64"] },
-        { "target": "deb", "arch": ["x64"] }
-      ],
-      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
-      "category": "Science"
-    },
-    "publish": [
-      { "provider": "github", "owner": "sidreddyyenireddy", "repo": "rebel-forge" }
-    ]
+    "express": "^4.19.2"
   }
 }
