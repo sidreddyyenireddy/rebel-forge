@@ -1,0 +1,45 @@
+
+.display-preference-container {
+  position: absolute;
+  right: 0;
+  background-color: #eee;
+  top: 40;
+  overflow: auto;
+  max-height: calc(100% - 40px);
+
+  .display-preference {
+    max-width: 626px;
+
+    h5 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .thumbnail-group {
+      display: flex;
+      flex-wrap: wrap;
+
+      .thumbnail {
+        flex-direction: column;
+        padding: 4px;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+
+        .thumbnail-name {
+          height: 20px;
+          margin-top: 5px;
+          width: 100%;
+          text-align: center;
+          line-height: 20px;
+
+          &.selected {
+            background: #337ab7;
+            color: #fff;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

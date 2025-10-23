@@ -1,0 +1,29 @@
+@import "jquery.terminal/css/jquery.terminal.min.css";
+
+.miew-terminal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 30%;
+  padding: 0;
+  margin-top: 40px;
+
+  --background: transparent;
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+.miew-terminal-body {
+  display: block;
+  height: 100%;
+  border: 1px solid #444;
+  background: rgba(0, 0, 0, 0.75);
+
+  .terminal-window {
+    height: 100%;
+  }
+}

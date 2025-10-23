@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rebel Forge | Molecular Operations</title>
+    <meta
+      name="description"
+      content="Professional molecular operations console powered by Miew."
+    />
+    <link rel="stylesheet" href="./node_modules/antd/dist/reset.css" />
+    <link rel="stylesheet" href="./node_modules/antd/dist/antd.min.css" />
+    <link rel="stylesheet" href="./node_modules/@blueprintjs/core/lib/css/blueprint.css" />
+    <link rel="stylesheet" href="./node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css" />
+    <link rel="stylesheet" href="./miew/packages/miew/dist/Miew.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="rf-miew">
+    <div class="rf-app">
+      <header class="rf-header">
+        <div class="rf-header-inner">
+          <div class="rf-brand">Rebel Forge · Molecular Console</div>
+          <div class="rf-session-meta">
+            <span id="operator-email" class="rf-session-id">Mission Control</span>
+            <button type="button" id="signout-btn" class="rf-button rf-button--ghost">
+              Sign Out
+            </button>
+            <button type="button" id="run-dft-btn" class="rf-button rf-button--primary" disabled>
+              Run DFT with Skala
+            </button>
+            <button
+              type="button"
+              id="run-geom-btn"
+              class="rf-button rf-button--outline"
+              disabled
+              hidden
+            >
+              Run Geometry Optimization + Forces
+            </button>
+          </div>
+        </div>
+      </header>
+      <main class="rf-main">
+        <section class="rf-workspace">
+          <article class="rf-viewer-card">
+            <header class="rf-viewer-header">
+              <p class="rf-viewer-subheading">
+                Inspect molecular structures, adjust representations, and validate geometry with the
+                Miew engine. Upload, drag and drop, or pull a curated reference to begin.
+              </p>
+            </header>
+            <div id="miew-container" class="rf-viewer-canvas" aria-label="Miew molecular viewer"></div>
+            <div id="load-status" class="rf-status" role="status" aria-live="polite" data-intent="idle">
+              <span id="load-status-text">Initializing Miew viewer…</span>
+              <a
+                id="download-dft-result"
+                class="rf-status-link"
+                href="#"
+                download="dft_result.json"
+                hidden
+                rel="noopener"
+              >
+                Download result
+              </a>
+              <div id="geom-opt-section" class="rf-geom-section" hidden>
+                <div id="geom-progress" class="rf-geom-progress" hidden>
+                  <span class="rf-spinner" aria-hidden="true"></span>
+                  <span id="geom-progress-text">Optimizing geometry and computing forces…</span>
+                </div>
+                <div id="geom-warning" class="rf-geom-warning" hidden role="status" aria-live="polite"></div>
+                <div id="geom-result" class="rf-geom-result" hidden>
+                  <div class="rf-geom-summary">
+                    <span id="geom-energy" class="rf-geom-energy">Final optimized energy: —</span>
+                    <span id="geom-convergence" class="rf-geom-convergence" data-state="unknown">
+                      Convergence: —
+                    </span>
+                  </div>
+                  <div class="rf-download-group">
+                    <a
+                      id="download-forces"
+                      class="rf-status-link"
+                      href="#"
+                      download="forces.json"
+                      hidden
+                      rel="noopener"
+                    >
+                      Download forces.json
+                    </a>
+                    <a
+                      id="download-optimized"
+                      class="rf-status-link"
+                      href="#"
+                      download="optimized.xyz"
+                      hidden
+                      rel="noopener"
+                    >
+                      Download optimized.xyz
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div id="pyscf-log-container" class="rf-log" hidden>
+                <div class="rf-log-header">PySCF Log</div>
+                <pre id="pyscf-log" class="rf-log-content" aria-live="polite"></pre>
+              </div>
+
+              
+            </div>
+          </article>
+          <aside class="rf-card rf-control-panel">
+            <header class="rf-control-header">
+              <h2 class="rf-section-title">Structure Intake</h2>
+              <p class="rf-help-text">
+                Supports PDB, CIF, SDF/MOL, XYZ, and other formats recognized by Miew.
+              </p>
+            </header>
+            <div class="rf-control-group">
+              <label for="text-structure" class="rf-auth-label">Paste Structure (PySCF / XYZ / PDB)</label>
+              <textarea id="text-structure" class="ant-input" rows="6" placeholder="Example (PySCF atom format):\nO 0.000 0.000 0.000\nH 0.757 0.586 0.000\nH -0.757 0.586 0.000"></textarea>
+              <div class="rf-button-row" style="margin-top: 0.5rem; align-items: center; gap: 0.5rem;">
+                <label for="text-format" class="rf-auth-label" style="margin: 0;">Format</label>
+                <select id="text-format" class="rf-select">
+                  <option value="pyscf" selected>PySCF atom</option>
+                  <option value="xyz">XYZ</option>
+                  <option value="pdb">PDB</option>
+                  <option value="sdf">SDF</option>
+                  <option value="cif">CIF</option>
+                </select>
+                <button type="button" id="use-text-btn" class="rf-button rf-button--outline">Use Text for DFT</button>
+              </div>
+              <small class="rf-help-text">
+                PySCF atom format: one atom per line — symbol and Angstrom coordinates, e.g. <code>C 0.0 0.0 0.0</code>. You can also separate atoms with semicolons, e.g. <code>H 0 0 0; O 0 0 1; H 0.95 0 0</code>. XYZ requires the atom count on the first line and a comment on the second line. PDB uses ATOM/HETATM records.
+              </small>
+            </div>
+            <div class="rf-control-group">
+              <label for="structure-file" class="rf-auth-label">Upload Molecule</label>
+              <div class="rf-file-input">
+                <input
+                  id="structure-file"
+                  type="file"
+                  accept=".pdb,.cif,.mmcif,.mol,.sdf,.xyz,.cml,.mol2,.json,.gz,.map,.ccp4,.dsn6"
+                />
+                <div
+                  id="structure-file-name"
+                  class="rf-file-name"
+                  data-state="empty"
+                  aria-live="polite"
+                >
+                  No file chosen.
+                </div>
+              </div>
+              <small class="rf-help-text">
+                Files are processed locally. Uploading replaces the active structure.
+              </small>
+            </div>
+            
+            <div class="rf-divider"></div>
+            <div class="rf-control-group">
+              <span class="rf-auth-label">Scene Utilities</span>
+              <div class="rf-button-row rf-button-row--wrap">
+                <button type="button" id="viewer-reset" class="rf-button rf-button--outline">
+                  Reset View
+                </button>
+                <button type="button" id="toggle-axes" class="rf-button rf-button--outline">
+                  Toggle Axes
+                </button>
+                <button type="button" id="toggle-rotation" class="rf-button rf-button--outline">
+                  Toggle Rotation
+                </button>
+              </div>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
+    <script src="https://unpkg.com/miew@0.11.0/dist/Miew.min.js"></script>
+    <script src="./viewer.js"></script>
+  </body>
+</html>

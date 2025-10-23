@@ -1,0 +1,39 @@
+name: Miew CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        node: [20, 22, 24]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node }}
+        cache: 'yarn'
+        
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run CI script
+      run: yarn run ci
+
+    - name: Collect coverage
+      if: github.event_name == 'push' && matrix.node == '22'
+      run: yarn run merge-cover
+
+    - name: Coveralls
+      if: github.event_name == 'push' && matrix.node == '22'
+      uses: coverallsapp/github-action@v2
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: ./coverage/lcov.info
+   

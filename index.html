@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rebel Forge</title>
+    <link rel="stylesheet" href="./node_modules/antd/dist/reset.css" />
+    <link rel="stylesheet" href="./node_modules/antd/dist/antd.min.css" />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@blueprintjs/core/lib/css/blueprint.css"
+    />
+    <link rel="stylesheet" href="./node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .rf-welcome-copy {
+        margin: 0 auto 2.5rem;
+        max-width: 540px;
+        text-align: center;
+        color: var(--rf-muted);
+        font-size: 1.05rem;
+        letter-spacing: 0.04em;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="rf-shell">
+      <h1 class="rf-heading">Welcome To Rebel Forge!</h1>
+      <p class="rf-welcome-copy">
+        Forge purposeful, high-impact experiences with a disciplined approach.
+        Your workspace is prepared and ready for the next mission briefing.
+      </p>
+      <div class="rf-actions">
+        <button
+          type="button"
+          id="continue-btn"
+          class="ant-btn ant-btn-primary ant-btn-lg rf-primary-btn"
+        >
+          Continue
+        </button>
+      </div>
+    </main>
+    <script>
+      const continueBtn = document.getElementById('continue-btn');
+      continueBtn.addEventListener('click', () => {
+        // Skip authentication and go straight to the main page
+        window.location.href = 'home.html';
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+$tGray: 64;
+$tAlpha: 0.75;
+$bGray: 32;
+$titlebarColor: silver;
+$titlebarGray: $tGray;
+$titlebarBkg: rgba($tGray, $tGray, $tGray, $tAlpha);
+$titlebarHeight: 40px;
+$titlebarAlpha: $tAlpha;
+$backGray: $bGray;
+$menuGray: $tAlpha * $tGray + (1 - $tAlpha) * $bGray;
+$selectionPanelRowHeight: 42px;
+$selectedPanelColor: #eee;
+$buttonPrimary: #337ab7;
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+h5 {
+  font-weight: 700;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+.root {
+  overflow: hidden;
+  position: relative;
+}

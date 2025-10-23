@@ -1,0 +1,15 @@
+node_modules/
+build/
+coverage/
+packages/miew-react/dist/
+.nyc_output/
+.sonar/
+.idea/
+.vscode/
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

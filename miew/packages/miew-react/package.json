@@ -1,0 +1,72 @@
+{
+  "name": "miew-react",
+  "version": "0.11.0",
+  "description": "Miew - 3D Molecular Viewer (React component)",
+  "author": "EPAM Systems, Inc.",
+  "homepage": "https://github.com/epam/miew#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/epam/miew.git",
+    "directory": "packages/miew-react"
+  },
+  "bugs": {
+    "url": "https://github.com/epam/miew/issues"
+  },
+  "keywords": [
+    "molecule",
+    "visualizer",
+    "chemistry"
+  ],
+  "packageManager": "yarn@3.6.3",
+  "main": "dist/index.js",
+  "module": "dist/index.modern.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "types/**/*"
+  ],
+  "scripts": {
+    "ci": "run-s lint test-cover build",
+    "lint": "prettier . --check && eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint-fix": "prettier . --write; eslint . --ext js,jsx --fix",
+    "test": "jest",
+    "test-cover": "jest --coverage",
+    "build": "webpack --mode production"
+  },
+  "dependencies": {
+    "miew": "workspace:^"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.12",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.0.2",
+    "jest-environment-jsdom": "^30.0.2",
+    "jest-simple-dot-reporter": "^1.0.5",
+    "ncp": "^2.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1",
+    "prettier": "^3.6.0",
+    "prop-types": "^15.8.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  }
+}

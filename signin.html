@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rebel Forge | Sign In</title>
+    <link rel="stylesheet" href="./node_modules/antd/dist/reset.css" />
+    <link rel="stylesheet" href="./node_modules/antd/dist/antd.min.css" />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@blueprintjs/core/lib/css/blueprint.css"
+    />
+    <link rel="stylesheet" href="./node_modules/@blueprintjs/icons/lib/css/blueprint-icons.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="rf-shell rf-auth-shell">
+      <header>
+        <h1 class="rf-heading">Authenticate Access</h1>
+        <p class="rf-subheading">
+          Provide your credentials to activate the molecular operations suite.
+        </p>
+      </header>
+      <form id="signin-form" class="rf-auth-form" autocomplete="off" novalidate>
+        <div class="rf-auth-field">
+          <label for="email" class="rf-auth-label">Email</label>
+          <input
+            class="ant-input ant-input-lg"
+            id="email"
+            name="email"
+            type="email"
+            placeholder="name@domain.com"
+            required
+          />
+        </div>
+        <div class="rf-auth-field">
+          <label for="access-key" class="rf-auth-label">Access Key</label>
+          <input
+            class="ant-input ant-input-lg"
+            id="access-key"
+            name="access-key"
+            type="password"
+            placeholder="Secure key"
+            minlength="6"
+            required
+          />
+        </div>
+        <div class="rf-actions">
+          <button type="submit" class="ant-btn ant-btn-primary ant-btn-lg rf-primary-btn">
+            Enter Control Center
+          </button>
+        </div>
+        <p class="rf-auth-footer">
+          All sessions adhere to portfolio-grade security standards.
+        </p>
+      </form>
+    </main>
+    <script>
+      const form = document.getElementById('signin-form');
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const email = form.elements.namedItem('email');
+        const accessKey = form.elements.namedItem('access-key');
+
+        if (!email.value.trim() || !accessKey.value.trim()) {
+          return;
+        }
+
+        window.sessionStorage.setItem(
+          'rebel-forge-auth',
+          JSON.stringify({ email: email.value.trim(), timestamp: Date.now() })
+        );
+
+        window.location.href = 'home.html';
+      });
+    </script>
+  </body>
+</html>

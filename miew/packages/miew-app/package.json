@@ -1,0 +1,81 @@
+{
+  "name": "miew-app",
+  "version": "0.11.0",
+  "description": "React application demonstrating capabilities of Miew library",
+  "author": "EPAM Systems, Inc.",
+  "private": true,
+  "main": "dist/main.js",
+  "license": "MIT",
+  "scripts": {
+    "ci": "run-s clean lint test-cover build",
+    "clean": "rimraf build",
+    "lint": "eslint -f unix --ext .js,.jsx src/ ",
+    "lint:css": "stylelint '**/*.scss'",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open",
+    "test": "jest",
+    "test-cover": "jest --coverage",
+    "show:cover": "node tools/open.mjs coverage/lcov-report/index.html"
+  },
+  "keywords": [
+    "molecule",
+    "protein",
+    "chemistry",
+    "miew",
+    "webgl",
+    "threejs",
+    "react"
+  ],
+  "moduleDirectories": [
+    "node_modules",
+    "src"
+  ],
+  "css": {
+    "includePaths": [
+      "./node_modules"
+    ]
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.2",
+    "bootstrap-switch-button-react": "^1.2.0",
+    "classnames": "^2.5.1",
+    "jquery": "^3.7.1",
+    "jquery.terminal": "^2.44.1",
+    "miew": "workspace:^",
+    "react": "^16.14.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^16.14.0",
+    "react-github-fork-ribbon": "^0.7.1",
+    "react-icons": "^5.5.0",
+    "react-redux": "^7.2.9"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/eslint-parser": "^7.27.5",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/react": "^12.1.5",
+    "babel-jest": "^30.0.2",
+    "babel-loader": "^10.0.0",
+    "copy-webpack-plugin": "^13.0.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^30.0.2",
+    "jest-environment-jsdom": "^30.0.2",
+    "jest-simple-dot-reporter": "^1.0.5",
+    "mini-css-extract-plugin": "^2.9.2",
+    "npm-run-all": "^4.1.5",
+    "popper.js": "^1.16.1",
+    "postcss": "^8.5.6",
+    "postcss-loader": "^8.1.1",
+    "postcss-scss": "^4.0.9",
+    "redux": "^4.2.1",
+    "rimraf": "^6.0.1",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
+}

@@ -1,0 +1,573 @@
+:root {
+  --rf-bg-gradient-start: #f4f6fb;
+  --rf-bg-gradient-end: #e2e7f2;
+  --rf-primary: #b22222;
+  --rf-primary-accent: #7a1818;
+  --rf-surface: rgba(255, 255, 255, 0.94);
+  --rf-surface-border: rgba(35, 57, 91, 0.12);
+  --rf-text: #243046;
+  --rf-muted: #5f6b7d;
+  --rf-shadow: 0 28px 72px rgba(18, 31, 56, 0.16);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, var(--rf-bg-gradient-start), var(--rf-bg-gradient-end));
+  color: var(--rf-text);
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.6;
+}
+
+body.rf-miew {
+  display: block;
+  align-items: initial;
+  justify-content: initial;
+}
+
+.rf-shell {
+  width: min(820px, 92vw);
+  padding: 3rem;
+  background: var(--rf-surface);
+  border: 1px solid var(--rf-surface-border);
+  border-radius: 24px;
+  box-shadow: var(--rf-shadow);
+  backdrop-filter: blur(10px);
+}
+
+.rf-heading {
+  margin: 0 0 1.75rem;
+  font-size: clamp(2.4rem, 4vw, 3.25rem);
+  text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rf-heading--compact {
+  margin: 0;
+  text-align: left;
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+}
+
+.rf-subheading {
+  margin: 0 0 2rem;
+  text-align: center;
+  color: var(--rf-muted);
+  font-size: 1.1rem;
+  letter-spacing: 0.04em;
+}
+
+.rf-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.rf-primary-btn {
+  min-width: 200px;
+}
+
+.rf-auth-shell {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.rf-auth-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.rf-auth-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.rf-auth-label {
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rf-primary);
+}
+
+.rf-auth-footer {
+  text-align: center;
+  color: var(--rf-muted);
+  letter-spacing: 0.03em;
+}
+
+.rf-nav-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1.5rem;
+}
+
+.rf-nav-brand {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.rf-nav-meta {
+  display: flex;
+  gap: 1.25rem;
+  color: var(--rf-muted);
+}
+
+.rf-section-title {
+  margin: 0;
+  font-size: 1.25rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rf-primary);
+}
+
+.rf-help-text {
+  color: var(--rf-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+.rf-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  background: rgba(35, 57, 91, 0.08);
+  border: 1px solid rgba(35, 57, 91, 0.18);
+  color: var(--rf-muted);
+  font-size: 0.98rem;
+  letter-spacing: 0.03em;
+}
+
+.rf-status-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(178, 34, 34, 0.35);
+  background: rgba(178, 34, 34, 0.14);
+  color: var(--rf-primary);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.rf-status-link:hover {
+  background: rgba(178, 34, 34, 0.22);
+  border-color: rgba(178, 34, 34, 0.55);
+}
+
+#download-dft-result[hidden] {
+  display: none;
+}
+
+.rf-status[data-intent='success'] {
+  color: #1c7c54;
+  background: rgba(28, 124, 84, 0.08);
+  border-color: rgba(28, 124, 84, 0.2);
+}
+
+.rf-status[data-intent='error'] {
+  color: #a11f30;
+  background: rgba(161, 31, 48, 0.08);
+  border-color: rgba(161, 31, 48, 0.2);
+}
+
+.rf-geom-section {
+  display: grid;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.rf-geom-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--rf-muted);
+  font-size: 0.95rem;
+}
+
+.rf-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(35, 57, 91, 0.25);
+  border-top-color: var(--rf-primary);
+  border-radius: 50%;
+  animation: rf-spin 0.8s linear infinite;
+}
+
+@keyframes rf-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rf-geom-warning {
+  color: #a11f30;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.rf-geom-result {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  background: rgba(35, 57, 91, 0.07);
+  border: 1px dashed rgba(35, 57, 91, 0.2);
+}
+
+.rf-geom-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+  color: var(--rf-text);
+}
+
+.rf-geom-energy {
+  font-weight: 600;
+}
+
+.rf-geom-convergence[data-state='success'] {
+  color: #1c7c54;
+}
+
+.rf-geom-convergence[data-state='failure'] {
+  color: #a11f30;
+}
+
+.rf-geom-convergence[data-state='unknown'] {
+  color: var(--rf-muted);
+}
+
+.rf-download-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rf-button {
+  border: 1px solid rgba(31, 60, 136, 0.35);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--rf-primary);
+  padding: 0.7rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.rf-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(31, 60, 136, 0.22);
+}
+
+.rf-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+  box-shadow: none;
+}
+
+.rf-button--primary {
+  background: linear-gradient(135deg, #b22222, #d64545);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.rf-button--outline {
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--rf-primary);
+}
+
+.rf-button--ghost {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.rf-button--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.rf-button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+}
+
+.rf-button-row--wrap {
+  flex-wrap: wrap;
+}
+
+.rf-select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(31, 60, 136, 0.25);
+  background: #ffffff;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  color: var(--rf-text);
+  appearance: none;
+}
+
+.rf-file-input input[type='file'] {
+  width: 100%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.rf-file-input {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.rf-file-name {
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  color: var(--rf-muted);
+  transition: color 0.2s ease;
+}
+
+.rf-file-name[data-state='selected'],
+.rf-file-name[data-state='ready'] {
+  color: var(--rf-primary);
+}
+
+.rf-file-name[data-state='error'] {
+  color: #b3261e;
+}
+
+.rf-file-name[data-state='empty'] {
+  font-style: italic;
+}
+
+.rf-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 24px;
+  border: 1px solid var(--rf-surface-border);
+  box-shadow: var(--rf-shadow);
+  padding: 2.25rem;
+}
+
+.rf-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.rf-header {
+  background: linear-gradient(115deg, #b22222, #7a1818);
+  color: #ffffff;
+  padding: 1.4rem 3.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.rf-header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.rf-brand {
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.rf-session-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+
+.rf-session-id {
+  text-transform: uppercase;
+}
+
+.rf-main {
+  padding: 3.5rem;
+}
+
+.rf-workspace {
+  display: grid;
+  gap: 2.75rem;
+  grid-template-columns: minmax(0, 2.4fr) minmax(0, 1fr);
+  align-items: flex-start;
+}
+
+.rf-viewer-card {
+  display: grid;
+  gap: 1.75rem;
+  position: relative;
+  /* Ensure viewer column remains beneath side controls */
+  z-index: 0;
+}
+
+.rf-viewer-header {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rf-viewer-subheading {
+  margin: 0;
+  color: var(--rf-muted);
+  font-size: 1.05rem;
+  letter-spacing: 0.03em;
+}
+
+.rf-viewer-canvas {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 560px;
+  border-radius: 22px;
+  border: 1px solid rgba(31, 60, 136, 0.14);
+  overflow: hidden;
+  background: #0f172a;
+  /* Ensure Miew's absolutely positioned children are contained
+     within the viewer column and do not overlap the control panel */
+  position: relative;
+  z-index: 0;
+}
+
+/* Hide viewer when using pasted PySCF text */
+.rf-viewer-canvas.rf-hidden {
+  display: none;
+}
+
+.rf-viewer-card.rf-drop-active .rf-viewer-canvas {
+  border-color: rgba(99, 102, 241, 0.55);
+  box-shadow: 0 24px 55px rgba(99, 102, 241, 0.32);
+}
+
+.rf-viewer-card.rf-drop-active::after {
+  content: 'Release to load structure';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(31, 60, 136, 0.55);
+  border-radius: 22px;
+  pointer-events: none;
+}
+
+.rf-control-panel {
+  display: grid;
+  gap: 2rem;
+  /* Keep the control panel above the viewer canvas if stacking occurs */
+  position: relative;
+  z-index: 1;
+}
+
+.rf-control-header {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.rf-control-group {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rf-preset-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.rf-preset-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 60, 136, 0.35);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--rf-primary);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.rf-preset-chip:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.rf-preset-chip:hover {
+  box-shadow: 0 10px 28px rgba(31, 60, 136, 0.18);
+}
+
+.rf-divider {
+  height: 1px;
+  background: rgba(31, 60, 136, 0.12);
+}
+
+@media (max-width: 1200px) {
+  .rf-main {
+    padding: 2.5rem;
+  }
+
+  .rf-workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .rf-header {
+    padding: 1.25rem 1.75rem;
+  }
+
+  .rf-header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .rf-main {
+    padding: 1.75rem;
+  }
+
+  .rf-card {
+    padding: 1.75rem;
+  }
+
+  .rf-viewer-canvas {
+    min-height: 420px;
+  }
+
+  .rf-button-row {
+    flex-wrap: wrap;
+  }
+}
