@@ -1,6 +1,6 @@
 {
   "name": "rebel-forge",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Desktop quantum chemistry and visualization app (Electron)",
   "homepage": "https://github.com/sidreddyyenireddy/rebel-forge#readme",
   "bugs": {
@@ -56,7 +56,9 @@
       {
         "from": "scripts",
         "to": "scripts",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "pyscf",
@@ -69,18 +71,27 @@
       {
         "from": "skala",
         "to": "skala",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "mac": {
       "category": "public.app-category.science",
-      "target": ["zip"],
+      "target": [
+        "zip"
+      ],
       "artifactName": "${productName}-${version}-${arch}-mac.${ext}",
       "identity": null
     },
     "win": {
       "target": [
-        { "target": "nsis", "arch": ["x64"] }
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ],
       "artifactName": "${productName}-${version}-${arch}-win.${ext}",
       "publisherName": "Sid Reddy"
@@ -94,8 +105,18 @@
     "linux": {
       "maintainer": "Sidharth Yenireddy <sidhry1234@gmail.com>",
       "target": [
-        { "target": "AppImage", "arch": ["x64"] },
-        { "target": "deb", "arch": ["x64"] }
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
       ],
       "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
       "category": "Science"
