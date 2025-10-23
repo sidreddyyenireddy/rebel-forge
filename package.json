@@ -1,11 +1,11 @@
 {
   "name": "rebel-forge",
-  "version": "1.0.6",
-  "description": "RebelForge — DFT/quantum chemistry desktop app",
-  "main": "dist/main/index.js",
+  "version": "1.0.7",
+  "description": "Desktop quantum chemistry and visualization app (Electron)",
+  "main": "index.js",
   "author": {
     "name": "Sidharth Yenireddy",
-    "email": "you@example.com"
+    "email": "sidhry1234@gmail.com"
   },
   "scripts": {
     "build": "electron-builder",
@@ -21,78 +21,55 @@
     "electron-builder": "^26.0.12"
   },
   "build": {
-    "appId": "com.rebelforge.app",
-    "productName": "RebelForge",
+    "appId": "com.sidreddyyenireddy.rebelforge",
+    "productName": "Rebel Forge",
     "files": [
+      "**/*",
+      "!**/*.map",
+      "!**/.*",
       "!dist/**",
+      "!miew/**",
+      "!scripts/**",
+      "!pyscf/**",
+      "!skala/**",
       "!**/{test,tests}/**",
       "!**/{doc,docs}/**",
       "!**/examples/**"
     ],
-    "extraResources": [
-      {
-        "from": "resources/pyscf",
-        "to": "resources/pyscf",
-        "filter": [
-          "**/*",
-          "!**/examples/**",
-          "!**/doc*/**",
-          "!**/*.md"
-        ]
-      },
-      {
-        "from": "resources/skala",
-        "to": "resources/skala",
-        "filter": [
-          "**/*",
-          "!**/examples/**",
-          "!**/docs/**",
-          "!**/*.md"
-        ]
-      }
-    ],
     "asar": true,
-    "asarUnpack": [
-      "**/*.node"
+    "npmRebuild": false,
+    "extraResources": [
+      { "from": "scripts", "to": "scripts", "filter": ["**/*"] },
+      { "from": "pyscf", "to": "pyscf", "filter": ["**/*", "!examples/**", "!**/doc*/**", "!**/*.md"] },
+      { "from": "skala", "to": "skala", "filter": ["**/*", "!**/examples/**", "!**/docs/**", "!**/*.md"] }
     ],
     "mac": {
-      "target": [
-        {
-          "target": "zip",
-          "arch": [
-            "arm64",
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "RebelForge-${version}-mac-${arch}.${ext}"
+      "target": ["zip"],
+      "identity": null,
+      "artifactName": "${productName}-${version}-${arch}-mac.${ext}"
     },
     "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "RebelForge-${version}-win-x64.${ext}"
+      "target": [{ "target": "nsis", "arch": ["x64"] }],
+      "artifactName": "${productName}-${version}-${arch}-win.${ext}",
+      "publisherName": "Sid Reddy"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": false
     },
     "linux": {
+      "maintainer": "Sidharth Yenireddy <sidhry1234@gmail.com>",
       "target": [
-        "AppImage",
-        "deb"
+        { "target": "AppImage", "arch": ["x64"] },
+        { "target": "deb", "arch": ["x64"] }
       ],
-      "maintainer": "Sidharth Yenireddy <you@example.com>",
-      "category": "Science",
-      "artifactName": "RebelForge-${version}-linux-${arch}.${ext}"
+      "artifactName": "${productName}-${version}-${arch}-${os}.${ext}",
+      "category": "Science"
     },
     "publish": [
-      {
-        "provider": "github",
-        "owner": "sidreddyyenireddy",
-        "repo": "rebel-forge"
-      }
+      { "provider": "github", "owner": "sidreddyyenireddy", "repo": "rebel-forge" }
     ]
   }
 }
