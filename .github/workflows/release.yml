@@ -3,8 +3,7 @@ name: Release
 on:
   workflow_dispatch:
   push:
-    tags:
-      - 'v*'
+    tags: ['v*']
 
 permissions:
   contents: write
@@ -13,71 +12,51 @@ jobs:
   macos-arm64:
     runs-on: macos-14
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
       - name: Install deps
         run: npm ci --no-audit --no-fund
       - name: Build macOS arm64
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx electron-builder -m --arm64 --publish always
+        env: { GH_TOKEN: ${{ secrets.GH_TOKEN }} }
+        run: npm run build:mac   # ← was npx electron-builder -m --arm64 ...
 
   macos-x64:
     runs-on: macos-13
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
       - name: Install deps
         run: npm ci --no-audit --no-fund
       - name: Build macOS x64
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx electron-builder -m --x64 --publish always
+        env: { GH_TOKEN: ${{ secrets.GH_TOKEN }} }
+        run: npm run build:mac   # same script builds both mac archs
 
   windows:
     runs-on: windows-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
       - name: Install deps
         run: npm ci --no-audit --no-fund
       - name: Ensure long paths enabled
-        run: |
-          git config --system core.longpaths true
+        run: git config --system core.longpaths true
       - name: Build Windows x64
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx electron-builder --win nsis --x64 --publish always
+        env: { GH_TOKEN: ${{ secrets.GH_TOKEN }} }
+        run: npm run build:win   # ← was npx electron-builder --win ...
 
   linux:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
       - name: Install deps
         run: npm ci --no-audit --no-fund
       - name: Install AppImage prerequisites
@@ -85,6 +64,5 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libfuse2 fakeroot
       - name: Build Linux x64
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx electron-builder -l AppImage deb --x64 --publish always
+        env: { GH_TOKEN: ${{ secrets.GH_TOKEN }} }
+        run: npm run build:linux # ← was npx electron-builder -l ...
