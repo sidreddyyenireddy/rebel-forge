@@ -1,6 +1,6 @@
 {
   "name": "rebel-forge",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Desktop quantum chemistry and visualization app (Electron)",
   "homepage": "https://github.com/sidreddyyenireddy/rebel-forge#readme",
   "bugs": {
@@ -11,7 +11,10 @@
     "url": "git+https://github.com/sidreddyyenireddy/rebel-forge.git"
   },
   "license": "UNLICENSED",
-  "author": "",
+  "author": {
+    "name": "Sidharth Yenireddy",
+    "email": "sidhry1234@gmail.com"
+  },
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
@@ -58,7 +61,10 @@
       {
         "from": "pyscf",
         "to": "pyscf",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*",
+          "!examples/**"
+        ]
       },
       {
         "from": "skala",
@@ -86,6 +92,7 @@
       "allowToChangeInstallationDirectory": false
     },
     "linux": {
+      "maintainer": "Sidharth Yenireddy <sidhry1234@gmail.com>",
       "target": [
         { "target": "AppImage", "arch": ["x64"] },
         { "target": "deb", "arch": ["x64"] }
